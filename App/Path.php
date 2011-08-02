@@ -8,21 +8,32 @@
     */
     class Path
     {
-	/**
-	 * inicia e resolve o carregamento
-	*/
+    	protected $_projectFolders = array();
+
+    	public function __construct()
+    	{
+        	$this->_projectFolders[] = 'App';
+        	$this->_projectFolders[] = 'config';
+        	$this->_projectFolders[] = 'pages';
+        	$this->_build();
+    	}
+
+		/**
+		 * inicia e resolve o carregamento
+		 */
         public static function init()
         {
-		    self::_build();
+        	$i = new self;
         }
 
         protected function _build()
         {
+        	#if( !$this->_checkIsAProjectFolder( $_SERVER['REQUEST_URI'] ) )
+        		#die;
+
         	if( strstr( $_SERVER['REQUEST_URI'], BASEURL ) !==  false )
         	{
         		$infos = str_replace( BASEURL, '', $_SERVER['REQUEST_URI'] );
-
-        		$fullPath = array();
 			    $path = realpath( './pages/' );
 			    
 		    	if( is_dir( $path . '/' . $infos ) )
@@ -47,5 +58,17 @@
         	}
         	else
         		require_once '404.php';
+        }
+
+        protected function _checkIsAProjectFolder( $path )
+        {
+        	$infos = explode( '/', str_replace( BASEURL, '', $path ) );
+        	
+        	if( !in_array( $infos[ 0 ], $this->_projectFolders ) )
+        	{
+        		return false;
+        	}
+
+        	return true;
         }
     }
