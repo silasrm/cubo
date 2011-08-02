@@ -10,8 +10,9 @@
     define('DATABASE_DB', 'vendas');
 
     /**
-     * configuração do banco de dados
+     * configuração do site
      */
     define('BASEURL', '/cubo/');
+    define('TITLE', 'Cubo');
 
 ?>
