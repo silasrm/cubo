@@ -13,31 +13,39 @@
 	*/
         public static function init()
         {
-	    $infos = explode('/', $_SERVER['QUERY_STRING']);
-	    $folder = null;
-	    $file = null;
-	    
-	    // se o primeiro nível não for passado, seta null
-	    if( trim($infos[0])  == "" )
-		$folder = null;
-	    else
-		$folder = $infos[0] . '/';
-	    
-	    // se não existe informações sobre o segundo nível, carrega o index
-	    if( count( $infos ) == 1 )
-		$file = 'index.php';
-	    else
-		$file = $infos[1] . '.php';
-	    
-	    $pathPages = realpath( dirname( __FILE__ ) ) . '/../../pages/';
-            
-	    // se existir o arquivo solicitado, carrega
-            if( file_exists( $pathPages . $folder . $file ) )
-                require_once $pathPages . $folder . $file;
-            else
-	    // se não carrega o 404 erro
-                require_once '404.php';
+		    self::_build();
+        }
+
+        protected function _build()
+        {
+        	if( strstr( $_SERVER['REQUEST_URI'], BASEURL ) !==  false )
+        	{
+        		$infos = str_replace( BASEURL, '', $_SERVER['REQUEST_URI'] );
+
+        		$fullPath = array();
+			    $path = realpath( './pages/' );
+			    
+		    	if( is_dir( $path . '/' . $infos ) )
+		    	{
+		    		if( file_exists( $path . '/' . $infos . 'index.php' ) )
+		    		{
+		    			require_once $path . '/' . $infos . 'index.php';
+		    		}
+		    		else if( file_exists( $path . '/' . $infos . '/index.php' ) )
+		    		{
+		    			require_once $path . '/' . $infos . '/index.php';
+		    		}
+		    		else
+		    			require_once '404.php';
+		    	}
+		    	else if( file_exists( $path . '/' . $infos . '.php' ) )
+		    	{
+		    		require_once $path . '/' . $infos . '.php';
+		    	}
+		    	else
+		    		require_once '404.php';
+        	}
+        	else
+        		require_once '404.php';
         }
     }
-
-?>
