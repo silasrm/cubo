@@ -47,8 +47,8 @@
         private function describe()
         {
             return $this->adapter
-                                    ->query( 'DESCRIBE ' . $this->table )
-                                    ->fetchAll( self::FETCH_OBJ ) ;
+                        ->query( 'DESCRIBE ' . $this->table )
+                        ->fetchAll( self::FETCH_OBJ ) ;
         }
         
         /**
@@ -71,8 +71,8 @@
         public function findAll()
         {
             return $this->adapter
-                                    ->query( 'SELECT * FROM ' . $this->table )
-                                    ->fetchAll( self::FETCH_OBJ );
+                        ->query( 'SELECT * FROM ' . $this->table )
+                        ->fetchAll( self::FETCH_OBJ );
         }
         
         /**
@@ -81,8 +81,8 @@
         public function find( $id )
         {
             return $this->adapter
-                                    ->query( 'SELECT * FROM ' . $this->table . ' WHERE id=' . $id )
-                                    ->fetch( self::FETCH_OBJ );
+                        ->query( 'SELECT * FROM ' . $this->table . ' WHERE id=' . $id )
+                        ->fetch( self::FETCH_OBJ );
         }
         
         /**
@@ -91,8 +91,8 @@
         public function count()
         {
             $result = $this->adapter
-                                        ->query( 'SELECT count(id) as total FROM ' . $this->table )
-                                        ->fetch( self::FETCH_OBJ );
+                            ->query( 'SELECT count(id) as total FROM ' . $this->table )
+                            ->fetch( self::FETCH_OBJ );
                                         
             if( $result )
                 return $result->total;
@@ -134,8 +134,8 @@
             $rules = $this->resolveInsertRules( $data );
             
             return $this->adapter
-                                    ->prepare( 'INSERT INTO ' . $this->table . ' ( ' . implode(',', $rules['fields'] ) . ' ) VALUES ( ' . implode(',', $rules['columns'] ) . ' )' )
-                                    ->execute( $data );
+                        ->prepare( 'INSERT INTO ' . $this->table . ' ( ' . implode(',', $rules['fields'] ) . ' ) VALUES ( ' . implode(',', $rules['columns'] ) . ' )' )
+                        ->execute( $data );
         }
         
         /**
@@ -169,8 +169,8 @@
             unset($data['id']);
             
             return $this->adapter
-                                    ->prepare( 'UPDATE ' . $this->table . ' SET ' . implode(',', $rules ) . ' WHERE id=' . $id )
-                                    ->execute( $data );
+                        ->prepare( 'UPDATE ' . $this->table . ' SET ' . implode(',', $rules ) . ' WHERE id=' . $id )
+                        ->execute( $data );
         }
         
         /**
@@ -197,7 +197,7 @@
         public function delete( $id )
         {
             return $this->adapter
-                                    ->exec( 'DELETE FROM ' . $this->table . ' WHERE id=' . $id );
+                        ->exec( 'DELETE FROM ' . $this->table . ' WHERE id=' . $id );
         }
         
         /**
@@ -206,8 +206,6 @@
         public function deleteAll()
         {
             return $this->adapter
-                                    ->exec( 'DELETE FROM ' . $this->table );
+                        ->exec( 'DELETE FROM ' . $this->table );
         }
     }
-
-?>
