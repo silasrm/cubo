@@ -18,6 +18,6 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8"  />
     </head>
     <body>
-    <?php App\Path\Path::init(); ?>
+    <?php App\Path::init(); ?>
     </body>
 </html>

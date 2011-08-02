@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Path;
+    namespace App;
     
     /**
      * resolve o carregamento de arquivos dinâmicos
