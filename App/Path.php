@@ -28,8 +28,8 @@
 
         protected function _build()
         {
-        	#if( !$this->_checkIsAProjectFolder( $_SERVER['REQUEST_URI'] ) )
-        		#die;
+        	if( !$this->_checkIsAProjectFolder( $_SERVER['REQUEST_URI'] ) )
+        		die;
 
         	if( strstr( $_SERVER['REQUEST_URI'], BASEURL ) !==  false )
         	{
